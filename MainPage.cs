@@ -7,6 +7,10 @@ namespace EmployeeManagement
         public void EmployeeSystem()
         {
             var employeedetails = new EmployeeDetails();
+            var addemployee = new AddEmployeeClass();
+            var viewemployee = new ViewEmployeeClass();
+            var deleteemployee = new DeleteEmployeeClass();
+            var updateemployee = new UpdateEmployeeClass();
             Console.WriteLine("Employee Management System");
             Console.WriteLine("");
             AvailableOptions:
@@ -20,12 +24,12 @@ namespace EmployeeManagement
             switch (Value)
             {
                 case 1:
-                    employeedetails.AddEmployee();
+                    addemployee.AddEmployee();
                     goto AvailableOptions;
                 case 2:
-                    //Thread MyThread = new Thread(new ThreadStart(employeedetails.UpdateEmployee));
-                    //MyThread.Start();
-                    //MyThread.Join();
+                    Thread MyThread = new Thread(new ThreadStart(updateemployee.UpdateEmployee));
+                    MyThread.Start();
+                    MyThread.Join();
                     goto AvailableOptions;
                 case 3:
                     Console.WriteLine("Delete Employee Details");
@@ -39,12 +43,12 @@ namespace EmployeeManagement
                         case 1:
                             Console.WriteLine("Enter the ID You want to delete");
                             string Id = Console.ReadLine();
-                            employeedetails.DeleteEmployee(id: Id);
+                            deleteemployee.DeleteEmployee(id: Id);
                             break;
                         case 2:
                             Console.WriteLine("Enter the Name You want to delete");
                             string Name = Console.ReadLine();
-                            employeedetails.DeleteEmployee(name: Name);
+                            deleteemployee.DeleteEmployee(name: Name);
                             break;
                         default:
                             Console.WriteLine($"Specify only the numeric values which ranges from 1 to 2");
@@ -52,7 +56,7 @@ namespace EmployeeManagement
                     }
                     goto AvailableOptions;
                 case 4:
-                    employeedetails.ViewEmployee();
+                    viewemployee.ViewEmployee();
                     goto AvailableOptions;
                 case 5:
                     return;
