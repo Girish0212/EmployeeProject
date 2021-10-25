@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace EmployeeManagement
@@ -14,22 +15,15 @@ namespace EmployeeManagement
         {
             try
             {
-                if (EmployeeDetails.employees.Count != 0)
+                DataTable table = SQL.ShowEmployee();
+                Console.WriteLine("Showing Records From the Database");
+                foreach (DataRow dataRow in table.Rows)
                 {
-                    Console.WriteLine("Viewing Employee Details");
-                    Console.WriteLine("************************");
-                    for (int index = 0; index < EmployeeDetails.employees.Count; index++)
-                    {
-
-                        Console.WriteLine($"EmployeeID:{EmployeeDetails.employees[index].EmployeeId.ToUpper()}\nEmployee Name:{EmployeeDetails.employees[index].EmployeeName.ToUpper()}\nMobile Number:{EmployeeDetails.employees[index].EmployeeMob}\nEmail ID:{EmployeeDetails.employees[index].EmployeeEmail}\nDate of Birth:{EmployeeDetails.employees[index].EmployeeDob.ToShortDateString()}\nDate of Join:{EmployeeDetails.employees[index].EmployeeDoj.ToShortDateString()}");
-                        Console.WriteLine();
-                    }
+                    Console.WriteLine("-----------------------------------------------------------------------------");
+                    Console.WriteLine($"EmployeeID :{dataRow[0]}\nNAME :{dataRow[1]}\n" +
+                        $"MobileNo :{dataRow[2]}\nEmail :{dataRow[3]}\nDOB :{dataRow[4]}\nDOJ :{dataRow[5]}");
                 }
-                else
-                {
-                    Console.WriteLine();
-                    throw new NoRecordFoundException();
-                }
+                
             }
             catch (NoRecordFoundException exception)
             {

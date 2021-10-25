@@ -172,7 +172,24 @@ namespace EmployeeManagement
             employeestruct.EmployeeDoj = EmployeeDetails.DateOfJoin;
             employeestruct.EmployeeEmail = EmployeeDetails.MailOfEmployee;
             EmployeeDetails.employees.Add(employeestruct);
+            try {
+                String SqlAddEmployee = ("INSERT INTO EMPLOYEE VALUES(" +
+                           $"'{EmployeeDetails.IdOfEmployee}'," +
+                           $"'{EmployeeDetails.NameOfEmployee}'," +
+                           $"{EmployeeDetails.MobileNumber}," +
+                           $"'{EmployeeDetails.MailOfEmployee}'," +
+                           $"'{EmployeeDetails.DateOfBirth.ToShortDateString()}'," +
+                           $"'{EmployeeDetails.DateOfJoin.ToShortDateString()}')");
 
+                int RowsAffected = SQL.SqlOperation(SqlAddEmployee);
+                Console.WriteLine("\n\t{0} Rows Affected", RowsAffected);
+                Console.WriteLine("\n..........Succesfully added the new Employee in the records.......");
+            }
+            catch(Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+           
 
         }
     }
