@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Threading;
 namespace EmployeeManagement
 {
@@ -11,6 +12,7 @@ namespace EmployeeManagement
             var viewemployee = new ViewEmployeeClass();
             var deleteemployee = new DeleteEmployeeClass();
             var updateemployee = new UpdateEmployeeClass();
+            var updateparticular = new UpdateParticular();
             Console.WriteLine("Employee Management System");
             Console.WriteLine("");
             AvailableOptions:
@@ -18,7 +20,8 @@ namespace EmployeeManagement
             Console.WriteLine(" 2.Update Employee");
             Console.WriteLine(" 3.Delete Employee");
             Console.WriteLine(" 4.View Employee Records");
-            Console.WriteLine(" 5.QUIT");
+            Console.WriteLine(" 5.Update Particular Records");
+            Console.WriteLine(" 6.QUIT");
             Console.WriteLine("\n Choose any number from the above Options : ");
             int Value = int.Parse(Console.ReadLine());
             switch (Value)
@@ -41,11 +44,25 @@ namespace EmployeeManagement
                     switch (Option)
                     {
                         case 1:
+                            DataTable table = SQL.ShowEmployee();
+                            Console.WriteLine("Existing Employee IDs From database");
+                            Console.WriteLine("**********************************");
+                            foreach (DataRow dataRow in table.Rows)
+                            {
+                                Console.WriteLine($"{dataRow[0]}");
+                            }
                             Console.WriteLine("Enter the ID You want to delete");
                             string Id = Console.ReadLine();
                             deleteemployee.DeleteEmployee(id: Id);
                             break;
                         case 2:
+                            table = SQL.ShowEmployee();
+                            Console.WriteLine("Existing Employee Names From database");
+                            Console.WriteLine("**********************************");
+                            foreach (DataRow dataRow in table.Rows)
+                            {
+                                Console.WriteLine($"{dataRow[1]}");
+                            }
                             Console.WriteLine("Enter the Name You want to delete");
                             string Name = Console.ReadLine();
                             deleteemployee.DeleteEmployee(name: Name);
@@ -59,6 +76,9 @@ namespace EmployeeManagement
                     viewemployee.ViewEmployee();
                     goto AvailableOptions;
                 case 5:
+                    updateparticular.UpdateParticularRecord();
+                    goto AvailableOptions;
+                case 6:
                     return;
 
                 default:
