@@ -11,28 +11,26 @@ namespace EmployeeManagement
             var addemployee = new AddEmployeeClass();
             var viewemployee = new ViewEmployeeClass();
             var deleteemployee = new DeleteEmployeeClass();
-            var updateemployee = new UpdateEmployeeClass();
             var updateparticular = new UpdateParticular();
             Console.WriteLine("Employee Management System");
             Console.WriteLine("");
             AvailableOptions:
             Console.WriteLine(" 1.Add Employee");
-            Console.WriteLine(" 2.Update Employee");
+            Console.WriteLine(" 2.Update Particular Records");
             Console.WriteLine(" 3.Delete Employee");
             Console.WriteLine(" 4.View Employee Records");
-            Console.WriteLine(" 5.Update Particular Records");
-            Console.WriteLine(" 6.QUIT");
+            Console.WriteLine(" 5.QUIT");
             Console.WriteLine("\n Choose any number from the above Options : ");
             int Value = int.Parse(Console.ReadLine());
             switch (Value)
             {
                 case 1:
-                    addemployee.AddEmployee();
-                    goto AvailableOptions;
-                case 2:
-                    Thread MyThread = new Thread(new ThreadStart(updateemployee.UpdateEmployee));
+                    Thread MyThread = new Thread(new ThreadStart(addemployee.AddEmployee));
                     MyThread.Start();
                     MyThread.Join();
+                    goto AvailableOptions;
+                case 2:
+                    updateparticular.UpdateParticularRecord();
                     goto AvailableOptions;
                 case 3:
                     Console.WriteLine("Delete Employee Details");
@@ -76,9 +74,6 @@ namespace EmployeeManagement
                     viewemployee.ViewEmployee();
                     goto AvailableOptions;
                 case 5:
-                    updateparticular.UpdateParticularRecord();
-                    goto AvailableOptions;
-                case 6:
                     return;
 
                 default:

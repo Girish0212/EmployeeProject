@@ -60,7 +60,7 @@ namespace EmployeeManagement
                     }
                     else
                     {
-                        throw new FormatException("Employee Name consist only of alphabets, no special characters or numbers");
+                        throw new FormatException("Employee Name Should consist only of alphabets,special characters and numbers are not allowed and it should not contain multiple occurence of same alphabets");
                     }
                 }
                 catch (Exception exception)
@@ -83,7 +83,7 @@ namespace EmployeeManagement
                     }
                     else
                     {
-                        throw new FormatException("Employee Email Id should contain @ and the domain should only in alphabets");
+                        throw new FormatException("Employee Email Id should contain name or id followed by @ and the domain name should only in alphabets");
                     }
 
                 }
@@ -108,7 +108,7 @@ namespace EmployeeManagement
                     }
                     else
                     {
-                        throw new FormatException("Employee Mobile Number consist only of numbers,no alphabets or special characters are allowed");
+                        throw new FormatException("Employee Mobile Number consist only of numbers of length 10,no alphabets or special characters are allowed");
                     }
                 }
                 catch (Exception exception)
@@ -156,7 +156,7 @@ namespace EmployeeManagement
                     }
                     else
                     {
-                        throw new FormatException("DOJ should not be in the future");
+                        throw new FormatException("DOJ should not be in the future and DOJ should be greater than 18 age when compared to DOB");
                     }
                 }
                 catch (Exception exception)
@@ -174,13 +174,13 @@ namespace EmployeeManagement
             EmployeeDetails.employees.Add(employeestruct);
             try {
                 String SqlAddEmployee = ("INSERT INTO EMPLOYEE VALUES(" +
-                           $"'{EmployeeDetails.IdOfEmployee}'," +
-                           $"'{EmployeeDetails.NameOfEmployee}'," +
+                           $"'{EmployeeDetails.IdOfEmployee.ToUpper()}'," +
+                           $"'{EmployeeDetails.NameOfEmployee.ToUpper()}'," +
                            $"{EmployeeDetails.MobileNumber}," +
                            $"'{EmployeeDetails.MailOfEmployee}'," +
                            $"'{EmployeeDetails.DateOfBirth.ToShortDateString()}'," +
                            $"'{EmployeeDetails.DateOfJoin.ToShortDateString()}')");
-
+                //Console.WriteLine(SqlAddEmployee);
                 int RowsAffected = SQL.SqlOperation(SqlAddEmployee);
                 Console.WriteLine("\n\t{0} Rows Affected", RowsAffected);
                 Console.WriteLine("\n..........Succesfully added the new Employee in the records.......");

@@ -7,21 +7,48 @@ namespace EmployeeManagement
 {
     class DeleteEmployeeClass
     {
+        bool IsDeleted;
         public void DeleteEmployee(string id, string Name = null)
         {
-            //int delete = EmployeeDetails.employees.FindIndex(x => x.EmployeeId == id);
-            //EmployeeDetails.employees.RemoveAt(delete);
-            int RowsAffected = SQL.SqlOperation($"DELETE FROM EMPLOYEE WHERE EMPLOYEEID = '{id}'");
-            Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
-            Console.WriteLine("Employee Details has been Deleted SuccessFully");
+            DataTable table = SQL.ShowEmployee();
+            foreach (DataRow dataRow in table.Rows)
+            {
+                bool IsMatch = dataRow[0].ToString() == id;
+                if (IsMatch)
+                {
+                    int RowsAffected = SQL.SqlOperation($"DELETE FROM EMPLOYEE WHERE EMPLOYEEID = '{id}'");
+                    Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
+                    Console.WriteLine("Employee Details has been Deleted SuccessFully");
+                    Console.WriteLine();
+                    IsDeleted = true;
+                }
+            }
+            if (IsDeleted == false)
+            {
+                Console.WriteLine("Employee Does Not Exists");
+                Console.WriteLine();
+            }
         }
         public void DeleteEmployee(string name)
         {
-            //int delete = EmployeeDetails.employees.FindIndex(x => x.EmployeeName == name);
-            //EmployeeDetails.employees.RemoveAt(delete);
-            int RowsAffected = SQL.SqlOperation($"DELETE FROM EMPLOYEE WHERE EMPLOYEENAME = '{name}'");
-            Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
-            Console.WriteLine("Employee Details has been Deleted SuccessFully");
+            DataTable table = SQL.ShowEmployee();
+            foreach (DataRow dataRow in table.Rows)
+            {
+                bool IsMatch = dataRow[1].ToString() == name;
+                if (IsMatch)
+                {
+                    int RowsAffected = SQL.SqlOperation($"DELETE FROM EMPLOYEE WHERE EMPLOYEENAME = '{name}'");
+                    Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
+                    Console.WriteLine("Employee Details has been Deleted SuccessFully");
+                    Console.WriteLine();
+                    IsDeleted = true;
+                }              
+            }
+            if (IsDeleted == false)
+            {
+                Console.WriteLine("Employee Does Not Exists");
+                Console.WriteLine();
+            }
 
         }
 

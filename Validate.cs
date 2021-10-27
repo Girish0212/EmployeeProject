@@ -17,7 +17,7 @@ namespace EmployeeManagement
         public bool ValidateName(string Name)
         {
             bool IsValidName = false;
-            if (Regex.IsMatch(Name, "^[a-zA-Z\\s]*$"))
+            if (Regex.IsMatch(Name, "^[a-zA-Z\\s]*$") && IsValidNameOccurrence(Name))
             {
                 IsValidName = true;
             }
@@ -62,6 +62,20 @@ namespace EmployeeManagement
             }
 
             return IsValidDOJ;
+        }
+        static bool IsValidNameOccurrence(string Name)
+        {
+            bool Result = true;
+            for (int Index = 0; Index < Name.Length - 2; Index++)
+            {
+                if (Name[Index] == Name[Index + 1] && Name[Index] == Name[Index + 2])
+                {
+                    Result = false;
+                    break;
+                }
+
+            }
+            return Result;
         }
     }
 }

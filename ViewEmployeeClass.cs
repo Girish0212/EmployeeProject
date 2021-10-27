@@ -17,6 +17,8 @@ namespace EmployeeManagement
             {
                 DataTable table = SQL.ShowEmployee();
                 Console.WriteLine("Showing Records From the Database");
+                //String DOB=("SELECT CAST(EmployeeDOB As date) from Employee");
+                //SQL.SqlOperation(SqlAddEmployee);
                 foreach (DataRow dataRow in table.Rows)
                 {
                     Console.WriteLine("-----------------------------------------------------------------------------");
