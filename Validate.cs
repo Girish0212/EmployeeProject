@@ -12,9 +12,7 @@ namespace EmployeeManagement
             if (Regex.IsMatch(Id, "[a][c][e][0-9]{4}") && Id.Length == 7 )
             {
                 IsValidId = true;
-
             }
-
             return IsValidId;
         }
         public bool ValidateName(string Name)
