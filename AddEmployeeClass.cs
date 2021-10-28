@@ -38,7 +38,7 @@ namespace EmployeeManagement
                     }
                     else
                     {
-                        throw new FormatException("Enter the Employee ID as ace or ACE followed by 4 digits");
+                        throw new FormatException("Enter the Employee ID as ace or ACE followed by 4 digits which does not already exists");
                     }
                 }
                 catch (Exception exception)
@@ -175,11 +175,11 @@ namespace EmployeeManagement
             try {
                 String SqlAddEmployee = ("INSERT INTO EMPLOYEE VALUES(" +
                            $"'{EmployeeDetails.IdOfEmployee.ToUpper()}'," +
-                           $"'{EmployeeDetails.NameOfEmployee.ToUpper()}'," +
+                           $"'{EmployeeDetails.NameOfEmployee}'," +
                            $"{EmployeeDetails.MobileNumber}," +
                            $"'{EmployeeDetails.MailOfEmployee}'," +
-                           $"'{EmployeeDetails.DateOfBirth.ToShortDateString()}'," +
-                           $"'{EmployeeDetails.DateOfJoin.ToShortDateString()}')");
+                           $"'{EmployeeDetails.DateOfBirth.ToString("MM/dd/yyyy")}'," +
+                           $"'{EmployeeDetails.DateOfJoin.ToString("MM/dd/yyyy")}')");
                 //Console.WriteLine(SqlAddEmployee);
                 int RowsAffected = SQL.SqlOperation(SqlAddEmployee);
                 Console.WriteLine("\n\t{0} Rows Affected", RowsAffected);

@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Data;
 namespace EmployeeManagement
 {
     class Validate
@@ -8,10 +9,16 @@ namespace EmployeeManagement
         public bool ValidateID(string Id)
         {
             bool IsValidId = false;
-            if (Regex.IsMatch(Id, "[a][c][e][0-9]{4}") && Id.Length == 7)
+           
+            int  RowsAffected = SQL.SqlOperation($"SELECT COUNT(*) FROM EMPLOYEE");
+            
+           
+            if (Regex.IsMatch(Id, "[a][c][e][0-9]{4}") && Id.Length == 7 )
             {
                 IsValidId = true;
+
             }
+
             return IsValidId;
         }
         public bool ValidateName(string Name)
