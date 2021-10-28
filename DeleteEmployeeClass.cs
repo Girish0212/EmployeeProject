@@ -13,7 +13,7 @@ namespace EmployeeManagement
             DataTable table = SQL.ShowEmployee();
             foreach (DataRow dataRow in table.Rows)
             {
-                bool IsMatch = dataRow[0].ToString() == id;
+                bool IsMatch = dataRow[0].ToString() == id.ToUpper();
                 if (IsMatch)
                 {
                     int RowsAffected = SQL.SqlOperation($"DELETE FROM EMPLOYEE WHERE EMPLOYEEID = '{id}'");

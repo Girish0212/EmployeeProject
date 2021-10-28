@@ -33,12 +33,12 @@ namespace EmployeeManagement
                     string Id = Console.ReadLine();
                     if (validate.ValidateID(Id) == true)
                     {
-                        EmployeeDetails.IdOfEmployee = Id;
+                        EmployeeDetails.IdOfEmployee = Id.ToUpper();
                         IsValidId = false;
                     }
                     else
                     {
-                        throw new FormatException("Enter the Employee ID as ace or ACE followed by 4 digits which does not already exists");
+                        throw new FormatException("Enter the Employee ID as ace or ACE followed by 4 digits");
                     }
                 }
                 catch (Exception exception)

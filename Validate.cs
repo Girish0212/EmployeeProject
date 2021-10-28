@@ -9,7 +9,7 @@ namespace EmployeeManagement
         public bool ValidateID(string Id)
         {
             bool IsValidId = false;
-            if (Regex.IsMatch(Id, "[a][c][e][0-9]{4}") && Id.Length == 7 )
+            if (Regex.IsMatch(Id, "^(ace|ACE)[0-9]{4}$") && Id.Length == 7 )
             {
                 IsValidId = true;
             }
@@ -27,7 +27,7 @@ namespace EmployeeManagement
         public bool ValidateEmail(string Email)
         {
             bool IsValidEmail = false;
-            if (Regex.IsMatch(Email, @"[0-9a-zA-Z]@[a-zA-Z]+.[a-zA-Z]{2,}$"))
+            if (Regex.IsMatch(Email, @"[0-9a-zA-Z]{3}@[a-zA-Z]+.[a-zA-Z]{2,}$"))
             {
                 IsValidEmail = true;
             }

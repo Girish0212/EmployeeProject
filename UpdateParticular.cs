@@ -24,7 +24,7 @@ namespace EmployeeManagement
             string Id = Console.ReadLine();
             foreach (DataRow dataRow in table.Rows)
             {
-                bool IsMatch = dataRow[0].ToString() == Id;
+                bool IsMatch = dataRow[0].ToString() == Id.ToUpper();
                 if (IsMatch)
                 {
                     Console.WriteLine($" 1.Update Name for {Id}");
