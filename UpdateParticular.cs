@@ -7,12 +7,16 @@ namespace EmployeeManagement
 {
     class UpdateParticular
     {
-        bool IsUpdated;
+        bool IsUpdated=false;
         public void UpdateParticularRecord()
         {
             var validate = new Validate();
             int RowsAffected;
-           
+            bool IsValidName = true;
+            bool IsValidEmail = true;
+            bool IsValidNum = true;
+            bool IsValidDob = true;
+            bool IsValidDoj = true;
             DataTable table = SQL.ShowEmployee();
             Console.WriteLine("Existing Employee ID From database");
             Console.WriteLine("**********************************");
@@ -37,53 +41,143 @@ namespace EmployeeManagement
                     switch (Value)
                     {
                         case 1:
-                            Console.WriteLine($"Enter the name You want to Update for {Id}");
-                            string Name = Console.ReadLine();
-                            if (validate.ValidateName(Name))
+                            while (IsValidName)
                             {
-                                RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEENAME = '{Name}' WHERE EMPLOYEEID ='{Id}'");
-                                Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
-                                Console.WriteLine();
+                                try
+                                {
+                                    Console.WriteLine($"Enter the name You want to Update for {Id}");
+                                    string Name = Console.ReadLine();
+                                    if (validate.ValidateName(Name) == true)
+                                    {
+                                        RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEENAME = '{Name}' WHERE EMPLOYEEID ='{Id}'");
+                                        Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
+                                        Console.WriteLine();
+                                        IsValidName = false;
+                                    }
+                                    else
+                                    {
+                                        throw new FormatException("Employee Name Should consist only of alphabets,special characters and numbers are not allowed and it should not contain multiple occurence of same alphabets");
+                                    }
+                                }
+                                catch (Exception exception)
+                                {
+                                    System.Console.WriteLine(exception.Message);
+                                }
                             }
                             break;
                         case 2:
-                            Console.WriteLine($"Enter the Email You want to Update for {Id}");
-                            string Email = Console.ReadLine();
-                            if (validate.ValidateEmail(Email))
+                            while (IsValidEmail)
                             {
-                                RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEEMAIL = '{Email}' WHERE EMPLOYEEID ='{Id}'");
-                                Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
-                                Console.WriteLine();
+                                try
+                                {
+                                    Console.WriteLine($"Enter the Email You want to Update for {Id}");
+                                    string Email = Console.ReadLine();
+                                    if (validate.ValidateEmail(Email) == true)
+                                    {
+                                        if (ExistsCheck.EmailDataExist(Email) == 0)
+                                        {
+                                            RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEEMAIL = '{Email}' WHERE EMPLOYEEID ='{Id}'");
+                                            Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
+                                            Console.WriteLine();
+                                            IsValidEmail = false;
+                                        }
+                                        else
+                                        {
+                                            throw new FormatException("Employee Email Already Exists");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        throw new FormatException("Employee Email Id should contain name or id followed by @ and the domain name should only in alphabets");
+                                    }
+
+                                }
+                                catch (Exception exception)
+                                {
+                                    System.Console.WriteLine(exception.Message);
+                                }
                             }
                             break;
                         case 3:
-                            Console.WriteLine($"Enter the MobileNumber You want to Update for {Id}");
-                            string Mobile = Console.ReadLine();
-                            if (validate.ValidateMobile(Mobile))
+                            while (IsValidNum)
                             {
-                                RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEMOBILE = '{Mobile}' WHERE EMPLOYEEID ='{Id}'");
-                                Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
-                                Console.WriteLine();
+                                try
+                                {
+                                    Console.WriteLine($"Enter the MobileNumber You want to Update for {Id}");
+                                    string Mobile = Console.ReadLine();
+                                    if (validate.ValidateMobile(Mobile) == true)
+                                    {
+                                        if (ExistsCheck.MobileDataExist(Mobile) == 0)
+                                        {
+                                            RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEMOBILE = '{Mobile}' WHERE EMPLOYEEID ='{Id}'");
+                                            Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
+                                            Console.WriteLine();
+                                            IsValidNum = false;
+                                        }
+                                        else
+                                        {
+                                            throw new FormatException("Employee Mobile Number Already Exists");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        throw new FormatException("Employee Mobile Number consist only of numbers of length 10,no alphabets or special characters are allowed");
+                                    }
+                                }
+                                catch (Exception exception)
+                                {
+                                    System.Console.WriteLine(exception.Message);
+                                }
                             }
                             break;
                         case 4:
-                            Console.WriteLine($"Enter the DOB You want to Update for {Id}");
-                            DateTime DOB = Convert.ToDateTime(Console.ReadLine());
-                            if (validate.ValidateDOB(DOB))
+                            while (IsValidDob)
                             {
-                                RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEDOB = '{DOB}' WHERE EMPLOYEEID ='{Id}'");
-                                Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
-                                Console.WriteLine();
+                                try
+                                {
+                                    Console.WriteLine($"Enter the DOB You want to Update for {Id}");
+                                    DateTime DOB = Convert.ToDateTime(Console.ReadLine());
+                                    if (validate.ValidateDOB(DOB) == true)
+                                    {
+                                        RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEDOB = '{DOB}' WHERE EMPLOYEEID ='{Id}'");
+                                        Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
+                                        Console.WriteLine();
+                                        IsValidDob = false;
+                                    }
+                                    else
+                                    {
+                                        throw new FormatException("Age should be 18 to 60 for valid DOB");
+                                    }
+                                }
+                                catch (Exception exception)
+                                {
+                                    System.Console.WriteLine(exception.Message);
+                                }
                             }
                             break;
                         case 5:
-                            Console.WriteLine($"Enter the DOJ You want to Update for {Id}");
-                            DateTime DOJ = Convert.ToDateTime(Console.ReadLine());
-                            if (validate.ValidateDOJ(DOJ))
+                            while (IsValidDoj)
                             {
-                                RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEDOJ = '{DOJ}' WHERE EMPLOYEEID ='{Id}'");
-                                Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
-                                Console.WriteLine();
+                                try
+                                {
+                                    Console.WriteLine($"Enter the DOJ You want to Update for {Id}");
+                                    DateTime DOJ = Convert.ToDateTime(Console.ReadLine());
+                                    if (validate.ValidateDOJ(DOJ) == true)
+                                    {
+                                        RowsAffected = SQL.SqlOperation($"UPDATE EMPLOYEE SET EMPLOYEEDOJ = '{DOJ}' WHERE EMPLOYEEID ='{Id}'");
+                                        Console.WriteLine($"\n\t{RowsAffected} Rows Affected");
+                                        Console.WriteLine();
+                                        IsValidDoj = false;
+                                    }
+                                    else
+                                    {
+                                        throw new FormatException("DOJ should not be in the future and DOJ should be greater than 18 age when compared to DOB");
+                                    }
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception.Message);
+                                }
                             }
                             break;
                         default:

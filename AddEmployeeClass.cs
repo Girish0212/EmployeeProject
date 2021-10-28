@@ -13,6 +13,7 @@ namespace EmployeeManagement
     class AddEmployeeClass:AddEmployeeServer
     {
         Validate validate = new Validate();
+        //ExistsCheck existscheck = new ExistsCheck();
         public override void AddEmployee()
         {
             Console.WriteLine("Getting Employee Details");
@@ -33,8 +34,15 @@ namespace EmployeeManagement
                     string Id = Console.ReadLine();
                     if (validate.ValidateID(Id) == true)
                     {
-                        EmployeeDetails.IdOfEmployee = Id.ToUpper();
-                        IsValidId = false;
+                        if (ExistsCheck.IDDataExist(Id) == 0)
+                        {
+                            EmployeeDetails.IdOfEmployee = Id.ToUpper();
+                            IsValidId = false;
+                        }
+                        else
+                        {
+                            throw new FormatException("Employee ID Already Exists");
+                        }
                     }
                     else
                     {
@@ -78,8 +86,15 @@ namespace EmployeeManagement
                     string Email = Console.ReadLine();
                     if (validate.ValidateEmail(Email) == true)
                     {
-                        EmployeeDetails.MailOfEmployee = Email;
-                        IsValidEmail = false;
+                        if (ExistsCheck.EmailDataExist(Email) == 0)
+                        {
+                            EmployeeDetails.MailOfEmployee = Email;
+                            IsValidEmail = false;
+                        }
+                        else
+                        {
+                            throw new FormatException("Employee Email Already Exists");
+                        }                       
                     }
                     else
                     {
@@ -102,9 +117,16 @@ namespace EmployeeManagement
                     Console.WriteLine("Enter the Employee Mobile number");
                     string Mob = Console.ReadLine();
                     if (validate.ValidateMobile(Mob) == true)
-                    {
-                        EmployeeDetails.MobileNumber = Convert.ToInt64(Mob);
-                        IsValidNum = false;
+                    {                    
+                        if (ExistsCheck.MobileDataExist(Mob) == 0)
+                        {
+                            EmployeeDetails.MobileNumber = Convert.ToInt64(Mob);
+                            IsValidNum = false;
+                        }
+                        else
+                        {
+                            throw new FormatException("Employee Mobile Number Already Exists");
+                        }
                     }
                     else
                     {
@@ -164,14 +186,14 @@ namespace EmployeeManagement
                     Console.WriteLine(exception.Message);
                 }
             }
-            var employeestruct = new EmployeeStruct();
-            employeestruct.EmployeeId = EmployeeDetails.IdOfEmployee;
-            employeestruct.EmployeeName = EmployeeDetails.NameOfEmployee;
-            employeestruct.EmployeeMob = EmployeeDetails.MobileNumber;
-            employeestruct.EmployeeDob = EmployeeDetails.DateOfBirth;
-            employeestruct.EmployeeDoj = EmployeeDetails.DateOfJoin;
-            employeestruct.EmployeeEmail = EmployeeDetails.MailOfEmployee;
-            EmployeeDetails.employees.Add(employeestruct);
+            //var employeestruct = new EmployeeStruct();
+            //employeestruct.EmployeeId = EmployeeDetails.IdOfEmployee;
+            //employeestruct.EmployeeName = EmployeeDetails.NameOfEmployee;
+            //employeestruct.EmployeeMob = EmployeeDetails.MobileNumber;
+            //employeestruct.EmployeeDob = EmployeeDetails.DateOfBirth;
+            //employeestruct.EmployeeDoj = EmployeeDetails.DateOfJoin;
+            //employeestruct.EmployeeEmail = EmployeeDetails.MailOfEmployee;
+            //EmployeeDetails.employees.Add(employeestruct);
             try {
                 String SqlAddEmployee = ("INSERT INTO EMPLOYEE VALUES(" +
                            $"'{EmployeeDetails.IdOfEmployee.ToUpper()}'," +

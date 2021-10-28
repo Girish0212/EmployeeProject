@@ -7,7 +7,7 @@ namespace EmployeeManagement
 {
     class DeleteEmployeeClass
     {
-        bool IsDeleted;
+        bool IsDeleted=false;
         public void DeleteEmployee(string id, string Name = null)
         {
             DataTable table = SQL.ShowEmployee();

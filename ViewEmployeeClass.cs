@@ -13,27 +13,23 @@ namespace EmployeeManagement
     {
         public override void ViewEmployee()
         {
-            try
-            {
-                DataTable table = SQL.ShowEmployee();
+            
+            DataTable table = SQL.ShowEmployee();
+            if (table.Rows.Count >0) {
                 Console.WriteLine("Showing Records From the Database");
-                //String DOB=("SELECT CAST(EmployeeDOB As date) from Employee");
-                //SQL.SqlOperation(SqlAddEmployee);
                 foreach (DataRow dataRow in table.Rows)
                 {
                     Console.WriteLine("-----------------------------------------------------------------------------");
                     Console.WriteLine($"EmployeeID :{dataRow[0]}\nNAME :{dataRow[1]}\n" +
                         $"MobileNo :{dataRow[2]}\nEmail :{dataRow[3]}\nDOB :{Convert.ToDateTime(dataRow[4]).ToString("dd/MM/yyyy")}\nDOJ :{Convert.ToDateTime(dataRow[5]).ToString("dd/MM/yyyy")}");
-                    Console.WriteLine();                
+                    Console.WriteLine();
                 }
-
-                
             }
-            catch (NoRecordFoundException exception)
+            else
             {
-                Console.WriteLine(exception.Message);
+                Console.WriteLine("No Records in the Database");
+                Console.WriteLine();
             }
-
 
         }
     }
