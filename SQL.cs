@@ -36,10 +36,11 @@ namespace EmployeeManagement
         {
             DataTable table = new DataTable();
             string ConnString = ConfigurationManager.ConnectionStrings["EmployeeDatabase"].ConnectionString;
+            var GetString = System.Configuration.ConfigurationManager.AppSettings["GetEmployeeDetails"];
             try
             {
                 using (SqlConnection connection = new SqlConnection(ConnString))
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM EMPLOYEE", connection))
+                using (SqlCommand cmd = new SqlCommand(GetString, connection))
                 {
                     connection.Open();
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
